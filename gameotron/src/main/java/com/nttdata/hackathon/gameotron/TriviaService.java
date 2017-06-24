@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
@@ -29,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by HUETTM on 23.06.2017.
  */
+@Path("trivia")
 public class TriviaService {
 
     private TextToSpeech textToSpeechService;
@@ -82,7 +84,7 @@ public class TriviaService {
      * @return
      */
     @GET
-    @Path("/question/{questionId}")
+    @Path("question/{questionId}")
     @Produces("audio/wav")
     public Response getQuestion(@PathParam("questionId") String questionId){
         Response response = Response.status(Response.Status.NOT_FOUND).build();
@@ -151,7 +153,7 @@ public class TriviaService {
      * @return
      */
     @POST
-    @Path("/answer/{questionId}")
+    @Path("answer/{questionId}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces("audio/wav")
     public Response getAnswer(@PathParam("questionId") String questionId, @FormDataParam("audio") InputStream audioInputStream) {
